@@ -4,15 +4,7 @@
     "sessionStart": [
       {
         "type": "command",
-        "bash": ".github/hooks/governance-audit/audit-session-start.sh",
-        "cwd": ".",
-        "timeoutSec": 5
-      }
-    ],
-    "sessionEnd": [
-      {
-        "type": "command",
-        "bash": ".github/hooks/governance-audit/audit-session-end.sh",
+        "command": "node .github/hooks/governance-audit/governance.cjs session-start",
         "cwd": ".",
         "timeoutSec": 5
       }
@@ -20,13 +12,66 @@
     "userPromptSubmitted": [
       {
         "type": "command",
-        "bash": ".github/hooks/governance-audit/audit-prompt.sh",
+        "command": "node .github/hooks/governance-audit/governance.cjs prompt",
         "cwd": ".",
         "env": {
           "GOVERNANCE_LEVEL": "standard",
-          "BLOCK_ON_THREAT": "false"
+          "BLOCK_ON_THREAT": "true"
         },
         "timeoutSec": 10
+      }
+    ],
+    "userPromptTransformed": [
+      {
+        "type": "command",
+        "command": "node .github/hooks/governance-audit/governance.cjs transformed",
+        "cwd": ".",
+        "env": {
+          "ENABLE_PROMPT_REDACTION": "true",
+          "GOVERNANCE_LEVEL": "standard",
+          "BLOCK_ON_THREAT": "true"
+        },
+        "timeoutSec": 10
+      }
+    ],
+    "preToolUse": [
+      {
+        "type": "command",
+        "command": "node .github/hooks/governance-audit/governance.cjs pre-tool",
+        "cwd": ".",
+        "timeoutSec": 5
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "command": "node .github/hooks/governance-audit/governance.cjs post-tool",
+        "cwd": ".",
+        "timeoutSec": 5
+      }
+    ],
+    "postToolUseFailure": [
+      {
+        "type": "command",
+        "command": "node .github/hooks/governance-audit/governance.cjs tool-failure",
+        "cwd": ".",
+        "timeoutSec": 5
+      }
+    ],
+    "agentStop": [
+      {
+        "type": "command",
+        "command": "node .github/hooks/governance-audit/governance.cjs turn-end",
+        "cwd": ".",
+        "timeoutSec": 5
+      }
+    ],
+    "sessionEnd": [
+      {
+        "type": "command",
+        "command": "node .github/hooks/governance-audit/governance.cjs session-end",
+        "cwd": ".",
+        "timeoutSec": 5
       }
     ]
   }
